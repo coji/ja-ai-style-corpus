@@ -1,0 +1,6 @@
+work/
+models/local/
+models/*-ckpt/
+__pycache__/
+*.pyc
+.env
