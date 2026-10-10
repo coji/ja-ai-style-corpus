@@ -48,7 +48,7 @@ tokenizer には `fugashi` と `unidic-lite` が要ります。語は UniDic で
 | | pre-ai | ai-era |
 |---|---|---|
 | 事前学習済みモデル | [tohoku-nlp/bert-base-japanese-v3](https://huggingface.co/tohoku-nlp/bert-base-japanese-v3)(CC-100 と 2023年1月の Wikipedia) | 同じ |
-| データ | 生成のプロンプトの元になった人間の文書(Qiita 2019〜2021年8月の記事、LLM-jp コーパス v4 の AI 以前の説明的な文章)。1,331万字 | 同じプロンプトで3社の生成AI(claude-opus-5-5・gpt-6.1-sol・gemini-3.8-flash、effort low)に書かせた文章から、文を無作為に選んで同じ字数にそろえたもの |
+| データ | 生成のプロンプトの元になった人間の文書(Qiita 2019〜2021年8月の記事、LLM-jp コーパス v4 の AI 以前の説明的な文章)。1,331万字 | 同じプロンプトで3社の生成AI(claude-opus-5-5・gpt-6.1-sol・gemini-3.8-flash、effort low)に書かせた文章から、文を無作為に選んで同じ字数に合わせたもの |
 | 設定 | 2,500ステップ(約1.8周)、バッチ32、系列長256、語単位の伏せ字15%(80% [MASK]・10% 置換・10% そのまま)、AdamW 学習率 5e-5、warmup 6%、weight decay 0.01、fp32、seed 0 | 同じ |
 | 最終の学習損失 | 1.755 | 1.879 |
 
@@ -74,7 +74,7 @@ AI 時代の文章で差が大きく出る語の例: 構成・実務・書く・
 
 - 差は「AI 以前の人がそこにその語を置くか」で、文章の良し悪しではありません。新しい技術用語や話題の語も大きく出ます
 - 学習データは技術記事と Web の説明的な文章です。議事録やメールは入っていません
-- 生成文の書き手は3モデルです。ほかのモデルの癖は写していない可能性があります
+- 生成文の書き手は3モデルです。ほかのモデルの癖は学習していない可能性があります
 - LoRA(差分だけの学習)では検出の力が大きく落ちたため、全体を学習したモデルを公開しています
 
 詳しくは [docs/findings.md](https://github.com/coji/ja-ai-style-corpus/blob/main/docs/findings.md) を見てください。

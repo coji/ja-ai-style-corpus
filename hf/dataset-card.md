@@ -52,4 +52,4 @@ configs:
 - プロンプトに含まれる人間の文書の一部(Qiita のタイトル、LLM-jp コーパスの文章の冒頭)の権利は、元の書き手にあります。LLM-jp コーパス由来の項目は、元のコーパスのライセンス(ODC-BY・CC BY 4.0)にも従ってください
 - 生成文の利用は、各モデルの利用規約の範囲で行ってください
 
-作り方・取り出しのスクリプト・わかったことは [GitHub](https://github.com/coji/ja-ai-style-corpus) にあります。
+作り方・取得のスクリプト・わかったことは [GitHub](https://github.com/coji/ja-ai-style-corpus) にあります。

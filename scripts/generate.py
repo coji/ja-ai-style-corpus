@@ -18,7 +18,7 @@
     このリポジトリの外に置いた空の作業ディレクトリと HOME で動かす。システムプロンプトは各 CLI の標準のまま
 
 段階:
-    build   プロンプトを作る(取り出した人間の文書から。既に使った文書と検査用の文書は除く)
+    build   プロンプトを作る(取得た人間の文書から。既に使った文書と検査用の文書は除く)
     run     書かせる(<out>/<engine>/<id>.md と <out>/meta.jsonl)。済んだものは飛ばす
 
 使い方:
@@ -124,7 +124,7 @@ def build(a) -> None:
 def prepare_isolation() -> None:
     for d in (CWD, HOME, CODEX_HOME):
         d.mkdir(parents=True, exist_ok=True)
-    auth = Path.home() / ".codex" / "auth.json"  # 認証情報だけは実環境から写す
+    auth = Path.home() / ".codex" / "auth.json"  # 認証情報だけは実環境からコピーする
     if auth.exists():
         shutil.copy2(auth, CODEX_HOME / "auth.json")
 
@@ -279,8 +279,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     b = sub.add_parser("build")
-    b.add_argument("--qiita", required=True, help="fetch_qiita.py で取り出した記事")
-    b.add_argument("--llmjp", required=True, help="fetch_llmjp.py で取り出した文書")
+    b.add_argument("--qiita", required=True, help="fetch_qiita.py で取得た記事")
+    b.add_argument("--llmjp", required=True, help="fetch_llmjp.py で取得た文書")
     b.add_argument("--n-qiita", type=int, default=750)
     b.add_argument("--n-biz", type=int, default=750)
     b.add_argument("--seed", type=int, default=0)

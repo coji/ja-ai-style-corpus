@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.11"
 # ///
-"""fetch_qiita.py — 一覧に載った Qiita 記事の本文を、Qiita API v2 で取り出す。
+"""fetch_qiita.py — 一覧に載った Qiita 記事の本文を、Qiita API v2 で取得する。
 
 一覧(data/baseline/qiita-*.jsonl)には本文を含めていない(著作権は書いた人にある)。
 投稿日ごとに検索して(1回100件)、一覧の ID に当たる記事だけを書き出す。記事ごとに取りに行くより
@@ -9,9 +9,9 @@
 
 - アクセストークンが要る(環境変数 QIITA_TOKEN。https://qiita.com/settings/applications で発行。
   読み取りだけなので read_qiita の権限で足りる)。トークンがあると1時間に1,000回まで
-- 一覧の body_sha256 と照合する。作者が後から記事を直していれば一致しない(件数を報告し、本文は書き出す)
-- 削除・非公開になった記事は取り出せない
-- 途中で止まっても、もう一度実行すれば取り出し済みの日を飛ばす
+- 一覧の body_sha256 と比べる。作者が後から記事を直していれば一致しない(件数を報告し、本文は書き出す)
+- 削除・非公開になった記事は取得できない
+- 途中で止まっても、もう一度実行すれば取得済みの日を飛ばす
 
 使い方:
     QIITA_TOKEN=... uv run scripts/fetch_qiita.py --list data/baseline/qiita-pre2022.jsonl --out work/qiita-pre2022.jsonl.gz
@@ -64,7 +64,7 @@ def fetch(query: str, page: int, token: str) -> tuple[list[dict], int]:
             raise
         except urllib.error.URLError:
             time.sleep(10 * (attempt + 1))
-    raise RuntimeError(f"取り出せなかった: {query} page={page}")
+    raise RuntimeError(f"取得できなかった: {query} page={page}")
 
 
 def main() -> None:
@@ -114,7 +114,7 @@ def main() -> None:
             with open(done_path, "a") as df:
                 df.write(day + "\n")
             print(f"  {day}: 累計 {found} 件", file=sys.stderr)
-    print(f"一覧 {len(want)} 件、取り出し {found} 件(うち本文が一覧と違う {mismatch} 件)。今回の実行分のみの数")
+    print(f"一覧 {len(want)} 件、取得 {found} 件(うち本文が一覧と違う {mismatch} 件)。今回の実行分のみの数")
 
 
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
 # /// script
 # requires-python = ">=3.11"
 # ///
-"""fetch_llmjp.py — 一覧に載った文書の本文を、LLM-jp コーパス v4 の配布元から取り出す。
+"""fetch_llmjp.py — 一覧に載った文書の本文を、LLM-jp コーパス v4 の配布元から取得する。
 
 一覧(data/baseline/llmjp-explanatory-pre2022-v1.jsonl、data/generated/sources-v1.jsonl)には本文を含めていない。
 該当するファイルを配布元から流し読みして、本文の SHA-256 が一覧と一致するものだけを書き出す(1ファイルで数分かかる)。
-配布元から文書が削除されていれば取り出せない(飛ばして件数を報告する)。
+配布元から文書が削除されていれば取得できない(飛ばして件数を報告する)。
 
 使い方:
     uv run scripts/fetch_llmjp.py --list data/baseline/llmjp-explanatory-pre2022-v1.jsonl --out work/llmjp.jsonl [--min-score 0.7]
@@ -72,7 +72,7 @@ def main() -> None:
                 fp.write(json.dumps({**w, "text": text}, ensure_ascii=False) + "\n")
                 found += 1
             print(f"{src}: 累計 {found} 件", file=sys.stderr)
-    print(f"一覧 {len(want)} 件、取り出し {found} 件、本文が一致しない {mismatch} 件、見つからない {len(want) - found - mismatch} 件")
+    print(f"一覧 {len(want)} 件、取得 {found} 件、本文が一致しない {mismatch} 件、見つからない {len(want) - found - mismatch} 件")
 
 
 if __name__ == "__main__":

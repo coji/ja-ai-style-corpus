@@ -55,7 +55,7 @@ CLI は実行者の個人設定(ユーザー設定・ルール・AGENTS.md・プ
 
 ### 人間の文書
 
-人間の文書の本文は含めていません(著作権は書いた人にあります)。一覧から取り出すスクリプトを置いています。
+人間の文書の本文は含めていません(著作権は書いた人にあります)。一覧から取得するスクリプトを置いています。
 
 ```bash
 # Qiita(アクセストークンが要る。https://qiita.com/settings/applications)
@@ -65,7 +65,7 @@ QIITA_TOKEN=... uv run scripts/fetch_qiita.py --list data/baseline/qiita-pre2022
 uv run scripts/fetch_llmjp.py --list data/baseline/llmjp-explanatory-pre2022-v1.jsonl --out work/llmjp.jsonl
 ```
 
-本文は一覧の SHA-256 と照合します。作者が後から記事を直したり、削除したりしていれば、一致しないか取り出せません。
+取得した本文は、一覧の SHA-256 と比べます。作者が後から記事を直したり、削除したりしていれば、一致しないか取得できません。
 
 ## モデル
 
@@ -74,7 +74,7 @@ uv run scripts/fetch_llmjp.py --list data/baseline/llmjp-explanatory-pre2022-v1.
 | | pre-ai | ai-era |
 |---|---|---|
 | 事前学習済みモデル | tohoku-nlp/bert-base-japanese-v3 | 同じ |
-| 追加学習のデータ | 生成のプロンプトの元になった人間の文書(Qiita 2019〜2021年8月の記事、LLM-jp コーパスの AI 以前の文章)1,331万字 | 生成文の `text_clean` から文を無作為に選び、同じ字数にそろえたもの |
+| 追加学習のデータ | 生成のプロンプトの元になった人間の文書(Qiita 2019〜2021年8月の記事、LLM-jp コーパスの AI 以前の文章)1,331万字 | 生成文の `text_clean` から文を無作為に選び、同じ字数に合わせたもの |
 | 学習 | 2,500ステップ(約1.8周)、バッチ32、系列長256、語単位の伏せ字15%、学習率 5e-5(warmup 6%、weight decay 0.01)、fp32、seed 0 | 同じ |
 
 学習には Apple M5 Pro(64GB、MPS)で1つ約50分かかりました。LoRA(差分だけの学習)も試しましたが、検出の力が大きく落ちたので使っていません([docs/findings.md](docs/findings.md))。

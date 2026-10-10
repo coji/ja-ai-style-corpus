@@ -1,15 +1,15 @@
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["torch", "transformers>=4.44", "accelerate", "peft"]
+# dependencies = ["torch", "transformers>=4.44", "accelerate", "peft", "fugashi", "unidic-lite"]
 # ///
 """train.py — AI 以前のモデル(pre-ai)と AI 時代のモデル(ai-era)を、同じ事前学習済みモデルから追加学習する。
 
     元       tohoku-nlp/bert-base-japanese-v3(CC-100 と 2023年1月の Wikipedia。生成AI以前の日本語)
     pre-ai   生成のプロンプトの元になった人間の文書(同じタイトルの Qiita 記事・同じ冒頭の LLM-jp の文書)
-    ai-era   そのプロンプトで生成AIに書かせた文章(text_clean)。文を無作為に減らして pre-ai と同じ字数にそろえる
+    ai-era   そのプロンプトで生成AIに書かせた文章(text_clean)。文を無作為に減らして pre-ai と同じ字数に合わせる
     検査用の文書(data/eval/test-*.txt)は学習から除く
 
-話題をそろえるのは、そろえないと差に「最近の業務・話題の語」が混ざるため(docs/findings.md)。
+話題を合わせるのは、合わせないと差に「最近の業務・話題の語」が混ざるため(docs/findings.md)。
 
 段階:
     prepare  学習用の文を作る(<work>/train-pre-ai.txt、train-ai-era.txt)
@@ -59,7 +59,7 @@ def prepare(a) -> None:
     a_lines = [s for d in human for s in sentences(d)]
     b_lines = [s for d in ai for s in sentences(d)]
     a_chars = sum(map(len, a_lines))
-    # AI の文章は長いので、文を無作為に減らして同じ字数にそろえる(学習の周回数をそろえる)
+    # AI の文章は長いので、文を無作為に減らして同じ字数に合わせる(学習の周回数を合わせる)
     random.Random(0).shuffle(b_lines)
     kept, n = [], 0
     for l in b_lines:
