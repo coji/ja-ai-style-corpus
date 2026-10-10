@@ -8,6 +8,73 @@ tags:
 - stylometry
 size_categories:
 - 1K<n<10K
+dataset_info:
+- config_name: generated
+  features:
+    - name: id
+      dtype: string
+    - name: prompt_id
+      dtype: string
+    - name: batch
+      dtype: string
+    - name: src
+      dtype: string
+    - name: type
+      dtype: string
+    - name: vendor
+      dtype: string
+    - name: model
+      dtype: string
+    - name: model_version
+      dtype: string
+    - name: effort
+      dtype: string
+    - name: harness
+      dtype: string
+    - name: harness_version
+      dtype: string
+    - name: settings
+      dtype: string
+    - name: prompt
+      dtype: string
+    - name: generated_at
+      dtype: string
+    - name: backfilled
+      dtype: bool
+    - name: text
+      dtype: string
+    - name: text_clean
+      dtype: string
+    - name: synthetic
+      dtype: bool
+    - name: notice
+      dtype: string
+- config_name: generated_holdout
+  features:
+    - name: id
+      dtype: string
+    - name: model
+      dtype: string
+    - name: effort
+      dtype: string
+    - name: harness
+      dtype: string
+    - name: harness_version
+      dtype: string
+    - name: settings
+      dtype: string
+    - name: prompt
+      dtype: string
+    - name: generated_at
+      dtype: string
+    - name: text
+      dtype: string
+    - name: text_clean
+      dtype: string
+    - name: synthetic
+      dtype: bool
+    - name: notice
+      dtype: string
 configs:
 - config_name: generated
   data_files: data/generated/generated-v1.jsonl.gz
